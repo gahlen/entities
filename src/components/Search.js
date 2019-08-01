@@ -1,18 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react"
+import { Redirect } from "react-router-dom";
+
 const headers = {"X-API-Key": process.env.REACT_APP_APIKEY}
 const congress = process.env.REACT_APP_CONGKEY
 
-const Day = ({ active, list, onClick }) => {
+const Selection = ({ active, list, onClick }) => {
   return (
     <div onClick={onClick} className={active ? "day active" : "day"}>
-      {list}
+    {`${list.first_name} ${list.last_name}`}
+      <Redirect to={{
+        pathname: '/Detail',
+        selected: list.first_name         
+      }} />
+      
     </div>
   );
 };
 
 const Search = () => {
-  const [senatorData, setSenatorData] = useState(["default"]);
-  const [chosen, setChosen] = useState();
+  const [senatorData, setSenatorData] = useState(["default"])
+  const [chosen, setChosen] = useState()
+
+  const handleOnClick = (list) => {
+    setChosen(list.id)
+    console.log(list.first_name)
+    
+  }
+
 
   useEffect(() => {
     fetch("https://api.propublica.org/congress/v1/" + congress, {
@@ -28,13 +42,13 @@ const Search = () => {
   return (
     
     <div className="App">
-    <h2>Welcome To The US Senators List</h2>
+    <h2>US Senators List</h2>
       {senatorData.map((listItem, i) => (
-        <Day
+        <Selection
           key={i}
-          list={`${listItem.first_name} ${listItem.last_name}`}
+          list={listItem}
           active={listItem.id === chosen}
-          onClick={() => setChosen(listItem.id)}
+          onClick={() => handleOnClick(listItem)}
         />
       ))}
     </div>
@@ -43,4 +57,4 @@ const Search = () => {
 };
 
 
-export default Search;
+export default Search

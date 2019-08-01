@@ -1,14 +1,14 @@
 import React from "react"; 
 import { Route } from "react-router-dom";
-import Search from "../components/Search";
+import Detail from "../components/Detail";
 
-const Routes = ({ getContacts, addContact, login }) => {
+const Routes = () => {
   return (
     <>
       <Route
         exact
         path="/"
-        component={() => <Search  />}
+        component={() => <Detail  />}
       />
     </>
   );
