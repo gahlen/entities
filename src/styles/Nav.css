@@ -1,0 +1,9 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(160, 194, 223);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    height: 58px;
+}
