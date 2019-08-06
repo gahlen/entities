@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(){
     super();
     this.state= {
-      data : {first_name: "", last_name: "", state: "", party: ""}
+      data : {first_name: "", last_name: "", state: "", party: "", gender: ""}
     }
   }
   
@@ -30,7 +30,7 @@ class App extends React.Component {
   render() {
     return(
       <div className="mainDiv">
-      <Nav calllist={this.fromSearch }/>
+      <Nav data={this.state.data} />
       <SenateList callback={this.fromList } />
       <Detail data={this.state.data} />
       </div>

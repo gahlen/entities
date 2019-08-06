@@ -41,7 +41,6 @@ const SenateList = props => {
           onClick={() => handleOnClick(listItem)}
         />
       ))}
-      
     </div>
   );
 };
