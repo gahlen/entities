@@ -16,12 +16,10 @@ body {
 }
 
 .detPos {
-  cursor: default;
   font-size: 24px;
   margin-top: 10vh;
   position:fixed;
-  bottom: 500;
-  right: 35%;
+  left: 40%;
   width: auto;
 }
 

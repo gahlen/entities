@@ -6,18 +6,33 @@ import Nav from "./components/Nav.js";
 
 import "./styles/App.css";
 
+const headers = { "X-API-Key": process.env.REACT_APP_APIKEY };
+const congress = process.env.REACT_APP_CONGKEY;
+
 class App extends React.Component {
   constructor(){
     super();
     this.state= {
-      data : {first_name: "", last_name: "", state: "", party: "", gender: ""}
+      data : [{first_name: "", last_name: "", state: "", party: "", gender: ""}],
+      origData : [{first_name: "", last_name: "", state: "", party: "", gender: ""}],
+      detailData: {}
     }
   }
   
+  componentDidMount() {
+    fetch("https://api.propublica.org/congress/v1/" + congress, {
+      method: "GET",
+      headers: headers
+    })
+      .then(res => res.json())
+      .then(data => data.results[0].members)
+      .then(data => this.setState({ data, origData: data }))
+      
+  }
+    
   fromList = (params) => {
-    console.log(params)
     this.setState({
-      data : params
+      detailData : params
     })
   }
 
@@ -30,9 +45,9 @@ class App extends React.Component {
   render() {
     return(
       <div className="mainDiv">
-      <Nav data={this.state.data} />
-      <SenateList callback={this.fromList } />
-      <Detail data={this.state.data} />
+      <Nav callback={this.fromSearch} data={this.state.origData} />
+      <SenateList callback={this.fromList } data={this.state.data} />
+      <Detail data={this.state.detailData} />
       </div>
     );
   }
